@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  mqtt_forwarder:
+    build: .
+    environment:
+      - MQTT_BROKER=mosquitto
+      - MQTT_FORWARDER_TOPIC=forwarded/topic
+      - MQTT_REMOTE_BROKER=example.com
+      - MQTT_REMOTE_PORT=1883
+    depends_on:
+      - mosquitto
+
+  mosquitto:
+    image: eclipse-mosquitto:2.0.11
+    ports:
+      - "1883:1883"
